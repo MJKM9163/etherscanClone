@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TopMenu from "../public/TopMenu";
 
@@ -60,17 +60,41 @@ const SearchBlock = styled.div`
         border-radius: 0px 5px 5px 0px;
         background-color: #3aa9e9;
         color: white;
+        cursor: pointer;
+        :hover {
+          background-color: #0592e4;
+        }
       }
     }
   }
 `;
 
 const StatusBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //justify-content: space-between;
   width: 100%;
+  //height: 100;
+  background-color: #bbe6ff;
+
+  div {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid black;
+  }
 `;
-//Home Blockchain Tokens Resources More SignIn
 
 const Home = () => {
+  const [txId, setTxId] = useState("");
+  const [data, setData] = useState(null);
+
+  const Web3 = require("web3");
+  const rpcURL = "https://goerli.infura.io/v3/8e028cf12bf04b22a4cff43a832a9c86";
+
+  const web3 = new Web3(rpcURL);
+  // 0x4b9f9c4932bb08e2353abae839be8e2c4b5f48a042891a675343b6db4811ff52
+
   return (
     <HomeContainerDiv>
       <TopMenu />
@@ -84,14 +108,42 @@ const Home = () => {
               All Filters
               <img src="/images/downArrow.png" alt="아래 화살표" />
             </div>
-            <input placeholder="Search by Address / Txn Hash / Block / Token / Ens" />
-            <i class="fa fa-search" />
+            <input
+              placeholder="Search by Address / Txn Hash / Block / Token / Ens"
+              value={txId}
+              onChange={(e) => {
+                setTxId(e.target.value);
+              }}
+            />
+            <i
+              className="fa fa-search"
+              onClick={() => {
+                console.log("클릭!");
+                web3.eth.getTransaction(txId).then((obj) => {
+                  console.log(obj);
+                  setData(obj);
+                });
+              }}
+            />
           </div>
           <div>link</div>
         </div>
         <div>add</div>
       </SearchBlock>
-      <StatusBlock>ETHER PRICE Latest Blocks Latest Transactions</StatusBlock>
+      {data ? (
+        <StatusBlock>
+          <div>Transaction Hash: {data.hash}</div>
+          <div>Status: </div>
+          <div>Block: {data.blockNumber}</div>
+          <div>Timestamp:</div>
+          <div>From: {data.from}</div>
+          <div>To: {data.to}</div>
+          <div>Value: {data.value}</div>
+          <div>Transaction Fee: {}</div>
+          <div>Gas Price: {data.gasPrice}</div>
+        </StatusBlock>
+      ) : null}
+
       {/* </BodyBlock> */}
     </HomeContainerDiv>
   );
