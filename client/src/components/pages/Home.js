@@ -87,7 +87,6 @@ const SearchBlock = styled.div`
     }
   }
 `;
-
 const Home = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);

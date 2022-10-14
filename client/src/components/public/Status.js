@@ -9,8 +9,8 @@ const StatusBlock = styled.div`
   //justify-content: space-between;
 
   width: 100%;
-  //height: 100;
-  //background-color: #bbe6ff;
+  height: 100%;
+  background-color: #f5f5f5;
   font-size: 14px;
   .header {
     width: 80vw;
@@ -20,14 +20,16 @@ const StatusBlock = styled.div`
   }
   .body {
     width: 80vw;
-    border: 1px solid gray;
+    border: 1px solid #dfdfdf;
     border-radius: 5px;
+    background-color: white;
     div {
       padding: 10px 0px 10px 0px;
     }
     .tap {
       padding-left: 10px;
       border-bottom: 1px solid gray;
+      color: #636363;
       span {
         margin-right: 10px;
         transition: 0.3s color;
