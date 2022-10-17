@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Search = ({ getTxData, setLoading }) => {
+const Search = ({ getTxData, getAcData, setLoading }) => {
   const [txId, setTxId] = useState("");
   return (
     <>
@@ -14,9 +14,14 @@ const Search = ({ getTxData, setLoading }) => {
       <i
         className="fa fa-search"
         onClick={() => {
-          console.log("클릭!");
+          console.log(txId.length);
           setLoading(true);
-          getTxData(txId);
+          if (txId.length === 66) {
+            getTxData(txId);
+          } else if (txId.length === 42) {
+            console.log(txId.length);
+            getAcData(txId);
+          }
         }}
       />
     </>

@@ -97,10 +97,26 @@ const Home = () => {
       url: `http://localhost:4000/transactions/${txId}`,
     }).then((res) => {
       console.log(res);
+      res.config.data = "transaction";
+
       setLoading(false);
       setData(res);
     });
   };
+
+  const getAcData = (txId) => {
+    axios({
+      method: "get",
+      url: `http://localhost:4000/transactions/${txId}`,
+    }).then((res) => {
+      console.log(res);
+      res.config.data = "account";
+
+      setLoading(false);
+      setData(res);
+    });
+  };
+
   // 0x4b9f9c4932bb08e2353abae839be8e2c4b5f48a042891a675343b6db4811ff52
 
   return (
@@ -117,7 +133,11 @@ const Home = () => {
                 All Filters
                 <img src="/images/downArrow.png" alt="아래 화살표" />
               </div>
-              <Search getTxData={getTxData} setLoading={setLoading} />
+              <Search
+                getTxData={getTxData}
+                getAcData={getAcData}
+                setLoading={setLoading}
+              />
             </div>
             <div>link</div>
           </div>
@@ -126,7 +146,15 @@ const Home = () => {
           </div>
         </div>
       </SearchBlock>
-      {data ? <Status data={data.data} /> : loading ? <Loading /> : null}
+      {data ? (
+        <Status
+          data={data.data}
+          type={data.config.data}
+          getAcData={getAcData}
+        />
+      ) : loading ? (
+        <Loading />
+      ) : null}
 
       {/* </BodyBlock> */}
     </HomeContainerDiv>

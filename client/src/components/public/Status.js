@@ -65,76 +65,103 @@ const StatusBlock = styled.div`
       }
       /* .status1 {
         border-bottom: 1px solid gray;
-      }
+      } */
       .status2 {
-        border-bottom: 1px solid gray;
+        .from {
+          color: blue;
+          cursor: pointer;
+          :hover {
+            color: #c2c2ff;
+          }
+        }
+        /* border-bottom: 1px solid gray; */
       }
-      .status3 {
+      /* .status3 {
         border-bottom: 1px solid gray;
       } */
     }
   }
 `;
 
-const Status = ({ data }) => {
+//0x4b9f9c4932bb08e2353abae839be8e2c4b5f48a042891a675343b6db4811ff52 66
+//0xAE29B2884bE712452EBE40fD302EC3Da87C12BC5 40
+
+const Status = ({ data, type, getAcData }) => {
   return (
     <StatusBlock>
-      <div className="header">Transaction Details</div>
-      <div className="body">
-        <div className="tap">
-          <span>Overview</span>
-          <span>State</span>
-        </div>
-        <div className="message">
-          [ This is a Goerli <b>Testnet</b> transaction only ]
-        </div>
-        <div className="statusBox">
-          <div className="status1 sAll">
-            <div className="valueBox">
-              <span className="key">Transaction Hash: </span>
-              <span className="value">{data.hash}</span>
+      {type === "transaction" ? (
+        <>
+          <div className="header">Transaction Details</div>
+          <div className="body">
+            <div className="tap">
+              <span>Overview</span>
+              <span>State</span>
             </div>
-            <div className="valueBox">
-              <span className="key">Status: </span>
-              <span className="value">{554}</span>
+            <div className="message">
+              [ This is a Goerli <b>Testnet</b> transaction only ]
             </div>
-            <div className="valueBox">
-              <span className="key">Block: </span>
-              <span className="value">{data.blockNumber}</span>
-            </div>
-            <div className="valueBox">
-              <span className="key">Timestamp: </span>
-              <span className="value">{"10.10.10"}</span>
+            <div className="statusBox">
+              <div className="status1 sAll">
+                <div className="valueBox">
+                  <span className="key">Transaction Hash: </span>
+                  <span className="value">{data.hash}</span>
+                </div>
+                <div className="valueBox">
+                  <span className="key">Status: </span>
+                  <span className="value">{}</span>
+                </div>
+                <div className="valueBox">
+                  <span className="key">Block: </span>
+                  <span className="value">{data.blockNumber}</span>
+                </div>
+                <div className="valueBox">
+                  <span className="key">Timestamp: </span>
+                  <span className="value">{}</span>
+                </div>
+              </div>
+              <div className="status2 sAll">
+                <div className="valueBox">
+                  <span className="key">From: </span>
+                  <span
+                    className="value from"
+                    onClick={() => {
+                      getAcData(data.from);
+                    }}
+                  >
+                    {data.from}
+                  </span>
+                </div>
+                <div className="valueBox">
+                  <span className="key">To: </span>
+                  <span className="value">{data.to}</span>
+                </div>
+              </div>
+              <div className="status3 sAll">
+                <div className="valueBox">
+                  <span className="key">Value: </span>
+                  <span className="value">{data.value}</span>
+                </div>
+                <div className="valueBox">
+                  <span className="key">Transaction Fee: </span>
+                  <span className="value">{}</span>
+                </div>
+              </div>
+              <div className="status4 sAll">
+                <div className="valueBox">
+                  <span className="key">Gas Price: </span>
+                  <span className="value">{data.gasPrice}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="status2 sAll">
-            <div className="valueBox">
-              <span className="key">From: </span>
-              <span className="value">{data.from}</span>
-            </div>
-            <div className="valueBox">
-              <span className="key">To: </span>
-              <span className="value">{data.to}</span>
-            </div>
-          </div>
-          <div className="status3 sAll">
-            <div className="valueBox">
-              <span className="key">Value: </span>
-              <span className="value">{data.value}</span>
-            </div>
-            <div className="valueBox">
-              <span className="key">Transaction Fee: </span>
-              <span className="value">{4564654}</span>
-            </div>
-          </div>
-          <div className="status4 sAll">
-            <div className="valueBox">
-              <span className="key">Gas Price: </span>
-              <span className="value">{data.gasPrice}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+        </>
+      ) : null}
+      {type === "account" ? (
+        <>
+          <div className="header_2">Balance : {556565}</div>
+          <div className="Transactions">Transactions list: {}</div>
+        </>
+      ) : null}
     </StatusBlock>
   );
 };
